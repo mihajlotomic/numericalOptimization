@@ -2,7 +2,7 @@ function alpha_star = Zoom(alpha_low, alpha_high, ...
                      x, c_1, c_2, p_k, use_newton)
 
     while true
-        alpha_j = Interpolation(alpha_high, alpha_low,...
+        alpha_j = Interpolation(alpha_high,...
                                 x, c_1, p_k, use_newton);
             
         %Compute phi(alpha_j)
@@ -16,7 +16,7 @@ function alpha_star = Zoom(alpha_low, alpha_high, ...
             phi_prime_alpha_j = Phi_prime(alpha_j, x ,p_k);
                        
             if abs(phi_prime_alpha_j) <=  ...
-                    (-1)*c_2*(Grad_Rosenbrock(x(1),x(2)))'*p_k;
+                    (-1)*c_2*(Grad_Rosenbrock(x(1),x(2)))'*p_k
             
                 alpha_star = alpha_j;
                 return;
