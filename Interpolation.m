@@ -33,7 +33,7 @@ function alpha_star  = Interpolation(alpha_k, alpha_low, ...
          Phi(alpha_k, x, p_k) - Phi(0, x, p_k) - Phi_prime(0, x, p_k)*alpha_k ...
         ];
         
-    ab=k*(l*m;
+    ab=k*l*m;
     a=ab(1);
     b=ab(2);
     % calculate alpha 2
