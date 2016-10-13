@@ -11,9 +11,7 @@ function armijo_check = is_armijo_met(alpha_k,x,c_1,p_k, use_newton)
    % grad_f_k' p_k  = phi_prime(0)
    if use_newton
         armijo_check = (Phi(alpha_k, x, p_k) <= ...               
-                        Phi(0, x, zeros(1,2)') + ...
-                        c_1*alpha_k*...
-                        Grad_Rosenbrock(x(1),x(2))'*p_k);
+                        Phi(0, x, p_k) + c_1*alpha_k*Phi_prime(0, x, p_k));
    else
        % Use the steepestdescent version
    end

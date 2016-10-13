@@ -1,13 +1,13 @@
-function [alpha_star]  = Interpolation(alpha_k, ...
+function alpha_star  = Interpolation(alpha_k, alpha_low, ...
                                        x, c_1, p_k, use_newton)
     epsilon_1 = 1e-5;
     epsilon_2 = 1e-5;
 
-%     % Step length is bound by alpha_low
-%     if alpha_k <= alpha_low
-%         alpha_star = alpha_low;
-%         return;
-%     end
+    % Step length is bound by alpha_low
+    if alpha_k <= alpha_low
+        alpha_star = alpha_low;
+        return;
+    end
     
     if is_armijo_met(alpha_k,x,c_1,p_k,use_newton)
         alpha_star = alpha_k;
@@ -15,9 +15,8 @@ function [alpha_star]  = Interpolation(alpha_k, ...
         return;
     end
     % calculate alpha 1
-    %alpha_1 = -1*(Grad_Rosenbrock(x(1),x(2))'*p_k*alpha_0^2)/...
-    alpha_1 =  Phi_prime(0, x, p_k)*alpha_k^2 / ...
-               (2*(Phi(alpha_k, x ,p_k) - Phi(0, x, zeros(1,2)') - ...
+    alpha_1 =  -1*Phi_prime(0, x, p_k)*(alpha_k^2) / ...
+               (2*(Phi(alpha_k, x ,p_k) - Phi(0, x, p_k) - ...
                   Phi_prime(0, x, p_k)*alpha_k));
 
     if is_armijo_met(alpha_1,x,c_1,p_k,use_newton)
@@ -28,13 +27,13 @@ function [alpha_star]  = Interpolation(alpha_k, ...
     
    %breaking [a;b] matrix into 3 pieces: k,l,m 
     k = 1/((alpha_k^2)*(alpha_1^2)*(alpha_1-alpha_k)); 
-    l =[alpha_k^2  -1*(alpha_1^2);
-        -1*(alpha_k^3)  alpha_1^3];
+    l =[alpha_k^2,  -1*(alpha_1^2);
+        -1*(alpha_k^3),  alpha_1^3];
     m = [Phi(alpha_1, x, p_k) - Phi(0, x, p_k) - Phi_prime(0, x, p_k)*alpha_1;...
          Phi(alpha_k, x, p_k) - Phi(0, x, p_k) - Phi_prime(0, x, p_k)*alpha_k ...
         ];
         
-    ab=k*l*m;
+    ab=k*(l*m;
     a=ab(1);
     b=ab(2);
     % calculate alpha 2
@@ -50,14 +49,5 @@ function [alpha_star]  = Interpolation(alpha_k, ...
     end
     % Terminate serach - we've found our step length
     alpha_star = alpha_2;
-    % calculate alpha_k+1
-%     alpha_k+1 = -1*(Grad_Rosenbrock(x(1),x(2))'*p_k(x(1),x(2))*alpha_0^2)/...
-%         2*(Rosenbrock(x(1)+alpha_0*p_k(1),x(2)+alpha_0*p_k(2)));
-%      
+     
 end
-
- 
-
-
-
-

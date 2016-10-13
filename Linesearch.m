@@ -8,8 +8,7 @@ function alpha_star = Linesearch (alpha_0, alpha_1, x, c_1, c_2, p_k, use_newton
     % Initial conditions
     alpha_i_minus_1 = alpha_0;
     alpha_i = alpha_1;
-    alpha_high = 1;
-    alpha_max = alpha_high;
+    alpha_max = alpha_1;
     i=1;
  
     while true
@@ -40,9 +39,6 @@ function alpha_star = Linesearch (alpha_0, alpha_1, x, c_1, c_2, p_k, use_newton
         alpha_i_minus_1 = alpha_i;
         alpha_i = (alpha_max-alpha_i)/2;
         i=i+1;
-        if i == 3
-            return;
-        end
    end    
            
     

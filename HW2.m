@@ -31,13 +31,13 @@ fprintf('x^T \t\t\t\t\tRosenbrock \t\t\t p^SD \t\t\t\t\talpha \t\titer\n');
 
 while abs(Rosenbrock(x(1),x(2)))  > TOLERANCE 
     % Search direction
+    display(k)
     p_k = P_k(x(1),x(2));
-    
-    Linesearch(alpha_vals(1), alpha_vals(2), x, c1, c2, p_k, 1)
+
+    Linesearch(alpha_vals(1), alpha_vals(2), x, c1, c2, p_k, 1);
     
    % Update the minimizer
    x = x + alpha_vals*P_k(x(1),x(2));
-   alpha_vals = 1;
    k=k+1;
    if mod(k,1000) == 0
            fprintf('[%1.6f,%1.6f]\t\t[%1.6f]\t\t[%1.6f,%1.6f]\t\t%1.6f\t%1.6f',...
