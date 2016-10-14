@@ -1,4 +1,4 @@
-function alpha_star = Linesearch (alpha_0, alpha_1, x, c_1, c_2, p_k, use_newton)
+function alpha_star = Linesearch (alpha_0, alpha_1, x, c_1, c_2, p_k)
     % Inputs:
     %       alpha_0, alpha_1 - 
     %       x
@@ -16,8 +16,7 @@ function alpha_star = Linesearch (alpha_0, alpha_1, x, c_1, c_2, p_k, use_newton
         if (phi_alpha_i > ( Rosenbrock(x(1),x(2)) + ....
                            c_1*alpha_i*Phi_prime(0,x,p_k)) ) || ...
            (phi_alpha_i >= Phi(alpha_i_minus_1, x, p_k) && i > 1)
-            alpha_star = Zoom(alpha_i_minus_1, alpha_i,x, c_1, c_2, ...
-                              p_k, use_newton);
+            alpha_star = Zoom(alpha_i_minus_1, alpha_i,x, c_1, c_2, p_k);
             return;
         end
         
@@ -29,8 +28,7 @@ function alpha_star = Linesearch (alpha_0, alpha_1, x, c_1, c_2, p_k, use_newton
         end    
         
         if phi_prime_alpha_i >=0
-            alpha_star = Zoom(alpha_i, alpha_i_minus_1, x, c_1, c_2, ...
-                              p_k, use_newton);
+            alpha_star = Zoom(alpha_i, alpha_i_minus_1, x, c_1, c_2, p_k);
             return;
         end
         

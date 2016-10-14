@@ -1,15 +1,15 @@
 function alpha_star = Zoom(alpha_low, alpha_high, ...
-                     x, c_1, c_2, p_k, use_newton)
+                     x, c_1, c_2, p_k)
 
     while true
         alpha_j = Interpolation(alpha_high, alpha_low,...
-                                x, c_1, p_k, use_newton);
+                                x, c_1, p_k);
             
         %Compute phi(alpha_j)
         phi_alpha_j = Phi(alpha_j,x ,p_k);
         phi_alpha_low = Phi(alpha_low,x ,p_k);
         
-        if ~(is_armijo_met(alpha_j,x,c_1,p_k,use_newton) ||  ...
+        if ~(is_armijo_met(alpha_j,x,c_1,p_k) ||  ...
                 phi_alpha_j >= phi_alpha_low)
             alpha_high = alpha_j;
         else           
