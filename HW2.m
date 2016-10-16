@@ -6,8 +6,9 @@ alpha_val = 1; % alpha_0, alpha_max
 x=[1.2;1.2];
 c1=10^(-4);
 c2= 9/10;
+f_x_array = Rosenbrock(x(1),x(2));
 
-use_newton = 1;
+use_newton = 0;
 
 k = 0;
 fprintf('x^T \t\t\t\t\tRosenbrock \t\t\t p_k \t\t\t\t\talpha \t\titer\n');
@@ -39,7 +40,7 @@ while abs(Rosenbrock(x(1),x(2)))  > TOLERANCE
         alpha_val = alpha_val*(p_k'*Grad_Rosenbrock(x_minus_1(1),x_minus_1(2))) / ...
                           (P_k(x(1), x(2))' * Grad_Rosenbrock(x(1),x(2)));
     end
-        
+    f_x_array = [f_x_array,Rosenbrock(x(1),x(2))];    
     if k > MAXITER
         error('Maximum iteration met - abort search', MAXITER)
     end

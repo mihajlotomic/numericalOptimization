@@ -2,10 +2,11 @@
 clear
 MAXITER = 10^4;
 alpha = 1;
-x=[-1.2;1];
+x=[1.2;1.2];
 c=10^(-4);
 rho=1/2;
 Grad_Rosenbrock(x(1),x(2));
+f_x_array = Rosenbrock(x(1),x(2));
 
 k = 0;
 display(sprintf('x^T \t\t\t\t\tRosenbrock \t\t\t p^SD \t\t\t\t\talpha \t\titer'));
@@ -33,6 +34,7 @@ while (abs(Rosenbrock(x(1),x(2)))) > (10^(-8))
            display(sprintf('[%1.6f,%1.6f]\t\t[%1.6f]\t\t[%1.6f,%1.6f]\t\t%1.6f\t%1.6f',...
        x(1),x(2),Rosenbrock(x(1),x(2)), P_k(x(1),x(2)) , alpha, k));
    end
+   f_x_array = [f_x_array,Rosenbrock(x(1),x(2))];    
    if k > MAXITER
        break;
    end
@@ -43,7 +45,7 @@ display(sprintf('[%1.6f,%1.6f]\t\t[%1.6f]\t\t[%1.6f,%1.6f]\t\t\t%1.6f\t%1.6f',..
 %
 clear
 alpha = 1;
-x=[-1.2;1];
+x=[1.2;1.2];
 c=10^(-4);
 rho=1/2;
 Grad_Rosenbrock(x(1),x(2));
