@@ -14,7 +14,6 @@ fprintf('x^T \t\t\t\t\tRosenbrock \t\t\t p^ \t\t\t\t\talpha \t\titer\n');
 
 while abs(Rosenbrock(x(1),x(2)))  > TOLERANCE 
     % Search direction
-    display(k)
     %p_k = P_k(x(1),x(2));
     p_k = P_k_newton(x(1), x(2));
 
