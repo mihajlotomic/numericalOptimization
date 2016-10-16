@@ -1,4 +1,4 @@
-function alpha_star = Linesearch (alpha_0, alpha_1, x, c_1, c_2, p_k)
+function alpha_star = Linesearch (alpha_i, x, c_1, c_2, p_k)
     % Inputs:
     %       alpha_0, alpha_1 - 
     %       x
@@ -6,17 +6,26 @@ function alpha_star = Linesearch (alpha_0, alpha_1, x, c_1, c_2, p_k)
     %       use_newton - apply newton method (1) or steepest descent (0)
 
     % Initial conditions
+    alpha_0 = 0;
+    alpha_max = 5;
     alpha_i_minus_1 = alpha_0;
-    alpha_i = alpha_1;
-    alpha_max = alpha_1;
+    
     i=1;
- 
+
     while true
         phi_alpha_i = Phi(alpha_i, x, p_k);
-        if (phi_alpha_i > ( Rosenbrock(x(1),x(2)) + ....
+        if (phi_alpha_i > ( Phi(0, x ,p_k) + ....
                            c_1*alpha_i*Phi_prime(0,x,p_k)) ) || ...
            (phi_alpha_i >= Phi(alpha_i_minus_1, x, p_k) && i > 1)
-            alpha_star = Zoom(alpha_i_minus_1, alpha_i,x, c_1, c_2, p_k);
+            % Find alpha_low and alpha_high
+            if Phi(alpha_i_minus_1,x,p_k) <  Phi(alpha_i,x,p_k)
+                alpha_low = alpha_i_minus_1;
+                alpha_high = alpha_i;
+            else
+                alpha_low = alpha_i;
+                alpha_high = alpha_i_minus_1;
+            end
+            alpha_star = Zoom(alpha_low, alpha_high,x, c_1, c_2, p_k);
             return;
         end
         
@@ -28,7 +37,15 @@ function alpha_star = Linesearch (alpha_0, alpha_1, x, c_1, c_2, p_k)
         end    
         
         if phi_prime_alpha_i >=0
-            alpha_star = Zoom(alpha_i, alpha_i_minus_1, x, c_1, c_2, p_k);
+            % Find alpha_low and alpha_high
+            if Phi(alpha_i_minus_1,x,p_k) <  Phi(alpha_i,x,p_k)
+                alpha_low = alpha_i_minus_1;
+                alpha_high = alpha_i;
+            else
+                alpha_low = alpha_i;
+                alpha_high = alpha_i_minus_1;
+            end
+            alpha_star = Zoom(alpha_low, alpha_high, x, c_1, c_2, p_k);
             return;
         end
         

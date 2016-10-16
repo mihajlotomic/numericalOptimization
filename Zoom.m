@@ -1,6 +1,7 @@
 function alpha_star = Zoom(alpha_low, alpha_high, ...
                      x, c_1, c_2, p_k)
-
+    MAX_ITERS = 25;
+    k = 0;
     while true
         alpha_j = Interpolation(alpha_high, alpha_low,...
                                 x, c_1, p_k);
@@ -27,6 +28,12 @@ function alpha_star = Zoom(alpha_low, alpha_high, ...
             end
         
             alpha_low = alpha_j;
+        end
+        k = k+1;
+        % Failsafe
+        if k > MAX_ITERS
+            alpha_star = alpha_j;
+            break;
         end
     end
      
