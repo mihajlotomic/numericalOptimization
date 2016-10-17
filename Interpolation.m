@@ -57,11 +57,9 @@ function alpha_star  = Interpolation(alpha_k, alpha_low, ...
             j = 0;
             return;
         end
-        al = Interpolation(alpha_2,alpha_low,x,c_1,p_k);
+        Interpolation(alpha_2,alpha_low,x,c_1,p_k);
 
     end
     % Terminate serach - we've found our step length
-    error('alpha_2 returns step length!!!!!!!!!!!1')
-    alpha_star = alpha_2;
-     
+    alpha_star = alpha_2;     
 end
