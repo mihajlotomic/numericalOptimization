@@ -29,11 +29,12 @@ while (abs(Rosenbrock(x(1),x(2)))) > (10^(-8))
     %update the minimizer
     x = x + alpha*P_k(x(1),x(2));
    alpha = 1;
-   k=k+1;
+  
    if mod(k,1000) == 0
            display(sprintf('[%1.6f,%1.6f]\t\t[%1.6f]\t\t[%1.6f,%1.6f]\t\t%1.6f\t%1.6f',...
        x(1),x(2),Rosenbrock(x(1),x(2)), P_k(x(1),x(2)) , alpha, k));
    end
+   k=k+1;
    f_x_array = [f_x_array,Rosenbrock(x(1),x(2))];    
    if k > MAXITER
        break;
@@ -45,31 +46,27 @@ display(sprintf('[%1.6f,%1.6f]\t\t[%1.6f]\t\t[%1.6f,%1.6f]\t\t\t%1.6f\t%1.6f',..
 %
 clear
 alpha = 1;
-x=[1.2;1.2];
+x=[-1.2;1];
 c=10^(-4);
 rho=1/2;
-Grad_Rosenbrock(x(1),x(2));
-
+f_x_array = Rosenbrock(x(1),x(2));
 k = 0;
-display(sprintf('x^T \t\t\t\t\t\t\tRosenbrock \t\t\t\t p^N \t\t\t\t\t\t\t\t alpha \t\t\titer'));
+display(sprintf('x^T \t\t\t\t\t\t\tRosenbrock \t\t\t\t p_k \t\t\t\t\t\t\t\t alpha \t\t\titer'));
 
-while (norm(Grad_Rosenbrock(x(1),x(2)))) > (10^(-8))
-    k=k+1;
-
+while  abs(Rosenbrock(x(1),x(2))) > (10^(-8)) 
     p_k_newton = P_k_newton(x(1),x(2));
-    
-    
     while (Rosenbrock(x(1)+alpha*p_k_newton(1),x(2)+alpha*p_k_newton(2))) > ...
          ( Rosenbrock(x(1),x(2)) + ... 
            c*alpha*P_k_newton(x(1),x(2))'*Grad_Rosenbrock(x(1),x(2))  ...
          )  
-
         alpha=rho*alpha;
     end
-   
     x = x + alpha*P_k_newton(x(1),x(2));
+    f_x_array = [f_x_array,Rosenbrock(x(1),x(2))];    
+
     display(sprintf('[%1.6f,%1.6f]\t\t\t[%1.6f]\t\t\t\t[%1.6f,%1.6f]\t\t\t\t\t%1.6f\t\t%1.6f',...
          x(1),x(2),Rosenbrock(x(1),x(2)), P_k_newton(x(1),x(2)) , alpha, k));
+    k=k+1;
     alpha=1;
 end
 

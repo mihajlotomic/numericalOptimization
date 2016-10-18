@@ -28,11 +28,12 @@ while abs(Rosenbrock(x(1),x(2)))  > TOLERANCE
     x_minus_1 = x; % Use to update the alpha for steepest descent
     x = x + alpha_val*p_k;
 
-    k=k+1;
+
     if mod(k,1000) == 0
         fprintf('[%1.6f,%1.6f]\t\t[%1.6f]\t\t[%1.6f,%1.6f]\t\t%1.6f\t%1.6f\n',...
             x(1),x(2),Rosenbrock(x(1),x(2)), p_k , alpha_val, k);
     end
+    k=k+1;
     % Update alpha based on the search direction
     if use_newton
         alpha_val = 1; % For Newton method
@@ -47,3 +48,12 @@ while abs(Rosenbrock(x(1),x(2)))  > TOLERANCE
 end
 fprintf('[%1.6f,%1.6f]\t\t[%1.6f]\t\t[%1.6f,%1.6f]\t\t\t%1.6f\t%1.6f\n',...
        x(1),x(2),Rosenbrock(x(1),x(2)), p_k, alpha_val, k);
+%% hjg
+figure;
+semilogy(0:length(f_x_array)-1,f_x_array,'x')
+title({'Linesearch Comparison Methods',sprintf('Starting pt = %1.1f, %1.1f',1.2,1.2)})
+xlabel('Iterations')
+ylabel('Objective function')
+grid
+legend('With Interpolation')
+hold on;
