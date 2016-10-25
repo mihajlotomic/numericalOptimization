@@ -28,7 +28,7 @@ while (abs(Rosenbrock(x(1),x(2)))) > (10^(-8))
     
     %update the minimizer
     x = x + alpha*P_k(x(1),x(2));
-   alpha = 1;
+    alpha = 1;
   
    if mod(k,1000) == 0
            display(sprintf('[%1.6f,%1.6f]\t\t[%1.6f]\t\t[%1.6f,%1.6f]\t\t%1.6f\t%1.6f',...
