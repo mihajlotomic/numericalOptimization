@@ -1,2 +1,2 @@
 # numericalOptimization
-Matlab scripts for numberical optimization toolbox
+Matlab scripts for numerical optimization toolbox
